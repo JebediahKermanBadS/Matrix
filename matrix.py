@@ -1,6 +1,8 @@
 """A module for a matrix class
 """
 
+import math
+import cmath
 import random
 
 class Matrix():
@@ -120,6 +122,15 @@ class Matrix():
 
         return result
 
+    def copy(self):
+        """TODO DOKU
+        """
+        result = Matrix(self.rows, self.columns)
+        for row in range(self.rows):
+            for col in range(self.columns):
+                result[row][col] = self[row][col]
+        return result
+
     def transpose(self):
         """Transpose the current Matrix. (Turning rows into columns and columns into rows)
         Returns:
@@ -130,6 +141,47 @@ class Matrix():
             for col in range(self.columns):
                 result[col][row] = self[row][col]
         return result
+
+    def inverse(self):
+        """TODO
+        """
+        if not self.is_square_matrix:
+            raise Exception()
+
+        result = self.copy()
+        det = self.determinant()
+
+        if self.rows == 1:
+            result = 1 / det
+        elif self.rows == 2:
+            result[0][0] = self[1][1] / det
+            result[0][1] /= -det
+            result[1][0] /= -det
+            result[1][1] = self[0][0] / det
+        else:
+            for row in range(self.rows):
+                for col in range(self.columns):
+                    co_m = Matrix(self.rows - 1, self.columns - 1)
+
+                    for co_row in range(co_m.rows):
+                        for co_col in range(co_m.columns):
+                            _r = co_row
+                            _c = co_col
+                            if co_row >= row:
+                                _r += 1
+                            if co_col >= col:
+                                _c += 1
+
+                            co_m[co_row][co_col] = self[_r][_c]
+
+                    factor = co_m.determinant()
+                    if (col + row) % 2 == 1:
+                        factor = -factor
+
+                    result[row][col] = factor / det
+
+        return result.transpose()
+
 
     def trace(self):
         """TODO
@@ -170,6 +222,22 @@ class Matrix():
 
         return det
 
+    def get_sub_matrix(self, row, column):
+        """TODO DOKU
+        """
+        sub_matrix = Matrix(self.rows - 1, self.columns - 1)
+        for _row in range(sub_matrix.rows):
+            for _col in range(sub_matrix.columns):
+                _r = _row
+                _c = _col
+                if _row >= row:
+                    _r += 1
+                if _col >= column:
+                    _c += 1
+
+                sub_matrix[_row][_col] = self[_r][_c]
+        return sub_matrix
+
     def matrix_size_equal(self, _m1):
         """Check if the size of 2 matrix is equal.
         Arguments:
@@ -187,7 +255,6 @@ class Matrix():
         """
         return self.rows == self.columns
 
-
 def main():
     """Main method
     """
@@ -196,12 +263,69 @@ def main():
     _m3 = Matrix.random_int_matrix(5, 1, -9, 9)
     _m4 = Matrix.random_int_matrix(1, 8, -9, 9)
     _m5 = Matrix.random_int_matrix(7, 7, -9, 9)
-    _m5[1][1] = 2.+3.j
+    _m6 = Matrix.random_int_matrix(3, 3, -9, 9)
     _m_identity = Matrix.identity_matrix(5)
-    print("M5---------------")
-    print(_m5)
-    print("det(m5)")
-    print(_m5.determinant())
+
+def et_exercise36():
+    """a
+    """
+
+    u_01 = 30
+    u_02 = 90j
+    r_1 = 100
+    r_2 = 200
+    x_l1 = 2 * math.pi * 1200 * 0.1j
+    x_l2 = 2 * math.pi * 1200 * 0.68j
+    x_c = - 1j/(2 * math.pi * 1200 * 300e-9)
+
+    print(x_l1)
+    print(x_l2)
+    print(x_c)
+
+    _d = Matrix(2, 2)
+    _d[0][0] = r_1 + x_l1 + x_l2
+    _d[0][1] = -x_l2
+    _d[1][0] = -x_l2
+    _d[1][1] = x_c + r_2 + x_l2
+
+    im1 = Matrix(2, 2)
+    im1[0][0] = u_01
+    im1[0][1] = -x_l2
+    im1[1][0] = -u_02
+    im1[1][1] = x_c + r_2 + x_l2
+
+    im2 = Matrix(2, 2)
+    im2[0][0] = r_1 + x_l1 + x_l2
+    im2[0][1] = u_01
+    im2[1][0] = -x_l2
+    im2[1][1] = -u_02
+
+    print("-------------------------------------------------")
+    print(im2)
+    print(-u_02 * (r_1 + x_l1 + x_l2))
+    print(x_l2 * u_01)
+    print(f"R1 + XL1 + XL2 = {r_1 + x_l1 + x_l2}")
+    print(f"Xc + R2 + XL2 = {x_c + r_2 + x_l2}")
+
+    print("-------------------------------------------------")
+
+    print(f"D = {_d.determinant():.3f}")
+    print(f"det Im1 = {im1.determinant():.3f}")
+    print(f"det Im2 = {im2.determinant():.3f}")
+
+    print("-------------------------------------------------")
+
+    _im1 = im1.determinant() / _d.determinant()
+    _im2 = im2.determinant() / _d.determinant()
+    print(f"im1 = {_im1:.5f}")
+    print(f"im2 = {_im2:.5f}")
+    print(f"im1 = {cmath.polar(_im1)}")
+    print(f"im2 = {cmath.polar(_im2)}")
+    print(f"im1 - im2 = {cmath.polar(_im1 - _im2)}")
+
+    print("-------------------------------------------------")
+
+    print(f"UL2 = {cmath.polar(_im1 * x_l1)}")
 
 if __name__ == "__main__":
     main()
