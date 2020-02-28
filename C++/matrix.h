@@ -7,14 +7,23 @@
 class Matrix
 {
     public:
-        Matrix(uint8_t rows, uint8_t columns);
+        Matrix(uint8_t m, uint8_t n);
         ~Matrix();
-
+        
         void setValues(int32_t **values);
-        Matrix copy();
-
+        bool isSquareMatrix() const;
         bool isSizeEqual(const Matrix *matrix) const;
+        
+        int32_t getTrace();
+        int32_t getDeterminant();
+
+        Matrix transpose() const;
+
         std::string toString();
+
+        static Matrix copy(const Matrix &m1);
+        static Matrix nullMatrix(uint8_t rows, uint8_t cols);
+        static Matrix identityMatrix(uint8_t m);
 
         friend Matrix operator+(const Matrix &m1, const int32_t scalar);
         friend Matrix operator+(const Matrix &m1, const Matrix &m2);
@@ -35,8 +44,10 @@ class Matrix
 
     private:
         uint8_t rows;
-        uint8_t columns;
-
+        uint8_t cols;
+        uint8_t m;
+        uint8_t n;
+        
         int32_t **values;
 };
 
