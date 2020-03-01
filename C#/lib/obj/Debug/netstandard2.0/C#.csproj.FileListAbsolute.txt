@@ -1,0 +1,9 @@
+C:\Users\marc\Documents\GitHub\Matrix\C#\lib\bin\Debug\netstandard2.0\C#.deps.json
+C:\Users\marc\Documents\GitHub\Matrix\C#\lib\bin\Debug\netstandard2.0\C#.dll
+C:\Users\marc\Documents\GitHub\Matrix\C#\lib\bin\Debug\netstandard2.0\C#.pdb
+C:\Users\marc\Documents\GitHub\Matrix\C#\lib\obj\Debug\netstandard2.0\C#.csprojAssemblyReference.cache
+C:\Users\marc\Documents\GitHub\Matrix\C#\lib\obj\Debug\netstandard2.0\C#.csproj.CoreCompileInputs.cache
+C:\Users\marc\Documents\GitHub\Matrix\C#\lib\obj\Debug\netstandard2.0\C#.AssemblyInfoInputs.cache
+C:\Users\marc\Documents\GitHub\Matrix\C#\lib\obj\Debug\netstandard2.0\C#.AssemblyInfo.cs
+C:\Users\marc\Documents\GitHub\Matrix\C#\lib\obj\Debug\netstandard2.0\C#.dll
+C:\Users\marc\Documents\GitHub\Matrix\C#\lib\obj\Debug\netstandard2.0\C#.pdb
