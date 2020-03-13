@@ -42,11 +42,12 @@ class Matrix
 
         int32_t *operator [](int i) const { return values[i]; }
 
+
     private:
         uint8_t rows;
         uint8_t cols;
-        uint8_t m;
-        uint8_t n;
+        const uint8_t m;
+        const uint8_t n;
         
         int32_t **values;
 };

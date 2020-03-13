@@ -3,11 +3,10 @@
 #include <bits/stdc++.h>
 
 Matrix::Matrix(uint8_t m, uint8_t n)
+    : m(m), n(n)
 {
     this->rows = m;
     this->cols = n;
-    this->m = m;
-    this->n = n;
 
     values = new int32_t* [rows];
 
